@@ -1743,8 +1743,15 @@ export default function StakingDashboard() {
               ),
 
             accruedReward:
-              accruedRewardRaw /
-              10 ** DECIMALS,
+              Math.max(
+                0,
+                Number(
+                  simulatedBalanceFpBig /
+                    ratePrecisionBig
+                ) /
+                  10 ** DECIMALS -
+                  tokenAmount(amountRaw)
+              ),
 
             /*
              * CLAIM mengikuti reward_interval_seconds
