@@ -1698,9 +1698,10 @@ export default function StakingDashboard() {
            */
 
           const compoundBalanceFpBig =
-            toBigInt(
-              compoundBalanceFp
-            );
+            compoundBalanceFpRaw > 0
+              ? toBigInt(compoundBalanceFpRaw)
+              : toBigInt(compoundBalanceRaw) *
+                BigInt("1000000000000000000");
 
           const accruedRewardFpBig =
             simulatedBalanceFpBig >
