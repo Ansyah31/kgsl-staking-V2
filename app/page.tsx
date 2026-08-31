@@ -3485,12 +3485,14 @@ export default function StakingDashboard() {
             title="TOTAL VALUE LOCKED"
             value={poolTotal}
             suffix="KGSL"
+            language={language}
           />
 
           <Stat
             title="YOUR ACTIVE STAKE"
             value={totalActiveStake}
             suffix="KGSL"
+            language={language}
           />
 
           <div>
@@ -3498,6 +3500,7 @@ export default function StakingDashboard() {
               title={t.wallet}
               value={Math.floor(walletBalance)}
               suffix="KGSL"
+              language={language}
             />
 
             <div className="mt-1 text-center text-xs font-semibold text-zinc-500">
@@ -3512,6 +3515,7 @@ export default function StakingDashboard() {
             title={t.pendingReward}
             value={totalPendingReward}
             suffix="KGSL"
+            language={language}
           />
 
 
@@ -4519,10 +4523,12 @@ function Stat({
   title,
   value,
   suffix,
+  language,
 }: {
   title: string;
   value: number;
   suffix: string;
+  language: "id" | "en";
 }) {
   return (
     <div className="kgsl-card p-4 md:p-5">
@@ -4532,9 +4538,12 @@ function Stat({
 
       <div className="mt-2 flex items-baseline gap-2">
         <span className="text-xl font-black md:text-2xl">
-          {value.toLocaleString(undefined, {
-            maximumFractionDigits: 6,
-          })}
+          {value.toLocaleString(
+            language === "id" ? "id-ID" : "en-US",
+            {
+              maximumFractionDigits: 6,
+            }
+          )}
         </span>
 
         <span className="text-xs font-black text-[#d4af37]">
