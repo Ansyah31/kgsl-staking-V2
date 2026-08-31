@@ -3698,10 +3698,13 @@ export default function StakingDashboard() {
 
                 <span className="text-xs text-zinc-600">
                   {language === "id" ? "Saldo:" : "Balance:"}{" "}
-                  {walletBalance.toLocaleString(undefined, {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 6,
-                  })} KGSL
+                  {walletBalance.toLocaleString(
+                    language === "id" ? "id-ID" : "en-US",
+                    {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 6,
+                    }
+                  )} KGSL
                 </span>
               </div>
 
