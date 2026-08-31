@@ -2043,6 +2043,16 @@ export default function StakingDashboard() {
       const token =
         tokensToBN(amount);
 
+      console.log("========== STAKE AMOUNT DEBUG ==========");
+      console.log("INPUT AMOUNT:", amount);
+      console.log("DECIMALS:", DECIMALS);
+      console.log("TOKEN RAW:", token.toString());
+      console.log(
+        "TOKEN UI:",
+        Number(token.toString()) / 10 ** DECIMALS
+      );
+      console.log("========================================");
+
       /* ------------------------------------------------------
          OWNER ATA
       ------------------------------------------------------ */
