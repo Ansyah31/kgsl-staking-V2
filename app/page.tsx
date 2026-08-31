@@ -1482,22 +1482,37 @@ export default function StakingDashboard() {
            * tidak hilang akibat pembulatan u64.
            */
 
-          const ratePrecision =
-            1_000_000_000_000_000_000;
+          /*
+           * ======================================================
+           * REWARD FIXED-POINT — BIGINT SAFE
+           * ======================================================
+           *
+           * Smart contract:
+           * RATE_PRECISION = 1e18
+           *
+           * compound_balance_fp adalah u128.
+           * JANGAN konversi ke JavaScript Number sebelum
+           * operasi fixed-point selesai.
+           */
 
-          const compoundBalanceFpRaw =
-            toNumber(
-              account.compoundBalanceFp ??
-                account.compound_balance_fp ??
-                0
-            );
+          const ratePrecisionBig =
+            BigInt("1000000000000000000");
+
+          const ratePrecision =
+            Number(ratePrecisionBig);
+
+          const compoundBalanceFpValue =
+            account.compoundBalanceFp ??
+            account.compound_balance_fp ??
+            0;
 
           /*
-           * Posisi lama mungkin belum mempunyai
-           * compound_balance_fp.
-           *
-           * Gunakan compound_balance sebagai fallback.
+           * Pertahankan u128 sebagai BigInt.
            */
+          let compoundBalanceFpBig =
+            toBigInt(
+              compoundBalanceFpValue
+            );
 
           const compoundBalanceRaw =
             toNumber(
@@ -1506,11 +1521,22 @@ export default function StakingDashboard() {
                 account.amount
             );
 
-          const compoundBalanceFp =
-            compoundBalanceFpRaw > 0
-              ? compoundBalanceFpRaw
-              : compoundBalanceRaw *
-                ratePrecision;
+          /*
+           * Posisi lama mungkin belum mempunyai
+           * compound_balance_fp.
+           *
+           * Fallback hanya digunakan jika field FP benar-benar 0.
+           */
+          if (compoundBalanceFpBig === BigInt(0)) {
+            compoundBalanceFpBig =
+              BigInt(
+                Math.trunc(
+                  compoundBalanceRaw *
+                    10 ** DECIMALS
+                )
+              ) *
+              ratePrecisionBig;
+          }
 
           const rewardRateFp =
             toBigInt(
@@ -1530,33 +1556,8 @@ export default function StakingDashboard() {
 
           /*
            * ======================================================
-           * DISPLAY REWARD
+           * REWARD INTERVAL
            * ======================================================
-           *
-           * Perhitungan frontend mengikuti konsep kontrak:
-           *
-           * reward per interval =
-           * balance_fp * interval_rate / RATE_PRECISION
-           *
-           * Dengan cara ini frontend tidak memakai Math.pow()
-           * sebagai sumber utama perhitungan reward.
-           */
-
-          /*
-           * ======================================================
-           * REWARD DISPLAY
-           * ======================================================
-           *
-           * PENDING REWARD di frontend adalah indikator bahwa
-           * reward sedang berjalan.
-           *
-           * Frontend refresh setiap 20 detik.
-           *
-           * PENDING REWARD dihitung kontinu berdasarkan waktu.
-           *
-           * CLAIM tetap mengikuti reward interval resmi Pool.
-           *
-           * Lock tetap mengikuti unlock_time.
            */
 
           const elapsedIntervals =
@@ -1578,12 +1579,6 @@ export default function StakingDashboard() {
                 rewardIntervalSeconds
             );
 
-          /*
-           * Interval resmi yang sudah selesai.
-           *
-           * Ini tetap digunakan untuk menentukan apakah
-           * reward sudah boleh di-claim.
-           */
           const rewardIntervals =
             Math.min(
               elapsedIntervals,
@@ -1591,7 +1586,7 @@ export default function StakingDashboard() {
             );
 
           /*
-           * Reward display tidak boleh melewati unlock_time.
+           * Reward display dibatasi sampai unlock_time.
            */
           const elapsedForReward =
             Math.max(
@@ -1602,17 +1597,17 @@ export default function StakingDashboard() {
               )
             );
 
-          let simulatedBalanceFp =
-            compoundBalanceFp;
-
           /*
            * ======================================================
-           * REWARD FIXED-POINT
+           * RATE PER INTERVAL
            * ======================================================
+           *
+           * Sama dengan smart contract:
+           *
+           * daily_rate *
+           * interval_seconds /
+           * 86400
            */
-
-          const rewardRateFpBig =
-            rewardRateFp;
 
           const rewardIntervalBig =
             BigInt(
@@ -1624,26 +1619,11 @@ export default function StakingDashboard() {
               )
             );
 
-          const ratePrecisionBig =
-            BigInt(
-              ratePrecision
-            );
-
-          let simulatedBalanceFpBig =
-            toBigInt(
-              compoundBalanceFp
-            );
-
-          /*
-           * Rate per interval.
-           *
-           * Rate smart contract TIDAK diubah.
-           */
-          const intervalRateBig: bigint =
-            rewardRateFpBig > BigInt(0) &&
+          const intervalRateBig =
+            rewardRateFp > BigInt(0) &&
             rewardIntervalBig > BigInt(0)
               ? (
-                  rewardRateFpBig *
+                  rewardRateFp *
                   rewardIntervalBig
                 ) /
                 BigInt(86400)
@@ -1651,77 +1631,96 @@ export default function StakingDashboard() {
 
           /*
            * ======================================================
-           * CONTINUOUS DISPLAY REWARD
+           * CONTINUOUS DISPLAY
            * ======================================================
            *
-           * Hanya untuk indikator PENDING REWARD di frontend.
+           * Untuk tampilan reward berjalan real-time.
            *
-           * 20 detik -> display dapat berubah
-           * 40 detik -> display dapat berubah
-           * 60 detik -> display dapat berubah
-           *
-           * Claim tetap mengikuti rewardIntervals.
+           * Tetap menggunakan BigInt.
            */
+          let unused_simulatedBalanceFpBig =
+            compoundBalanceFpBig;
 
           if (
             elapsedForReward > 0 &&
-            rewardRateFpBig > BigInt(0)
+            rewardRateFp > BigInt(0)
           ) {
-            const elapsedRewardFpBig =
-              (
-                simulatedBalanceFpBig *
-                rewardRateFpBig *
-                BigInt(
+            const elapsedBig =
+              BigInt(
+                Math.floor(
                   elapsedForReward
                 )
+              );
+
+            const elapsedRewardFpBig =
+              (
+                unused_simulatedBalanceFpBig *
+                rewardRateFp *
+                elapsedBig
               ) /
               (
                 ratePrecisionBig *
                 BigInt(86400)
               );
 
-            simulatedBalanceFpBig +=
+            unused_simulatedBalanceFpBig =
+              unused_simulatedBalanceFpBig +
               elapsedRewardFpBig;
           }
 
           /*
-           * Gunakan hasil continuous display.
+           * ======================================================
+           * ACCRUED REWARD
+           * ======================================================
            */
-          simulatedBalanceFp =
-            Number(
-              simulatedBalanceFpBig
-            ) /
-            ratePrecision;
-
-          /*
-           * Reward baru dalam fixed-point.
-           */
-
-          const compoundBalanceFpBig =
-            toBigInt(
-              compoundBalanceFp
-            );
 
           const accruedRewardFpBig =
-            simulatedBalanceFpBig >
+            unused_simulatedBalanceFpBig >
             compoundBalanceFpBig
-              ? simulatedBalanceFpBig -
+              ? unused_simulatedBalanceFpBig -
                 compoundBalanceFpBig
               : BigInt(0);
 
           /*
-           * Konversi ke raw token.
-           * BigInt menjaga presisi u128 sampai tahap ini.
+           * FP -> raw token
+           *
+           * 1e18 FP
+           *      ↓
+           * 1 raw token unit
            */
-
           const accruedRewardRawBig =
             accruedRewardFpBig /
             ratePrecisionBig;
 
+          /*
+           * Konversi ke Number hanya SETELAH
+           * fixed-point selesai.
+           *
+           * Nilai ini adalah raw token unit.
+           */
           const accruedRewardRaw =
             Number(
               accruedRewardRawBig
             );
+
+          /*
+           * Compound balance untuk DISPLAY.
+           *
+           * BigInt tetap digunakan sampai FP selesai
+           * dibagi precision.
+           */
+          const simulatedBalanceRawBig =
+            unused_simulatedBalanceFpBig /
+            ratePrecisionBig;
+
+          const simulatedBalanceRaw =
+            Number(
+              simulatedBalanceRawBig
+            );
+
+          const simulatedBalanceTokens =
+            simulatedBalanceRaw /
+            10 ** DECIMALS;
 
           const position = {
             amount:
@@ -1735,9 +1734,8 @@ export default function StakingDashboard() {
 
             compoundBalance:
               tokenAmount(
-                Math.floor(
-                  simulatedBalanceFp /
-                    ratePrecision
+                Number(
+                  simulatedBalanceRawBig
                 )
               ),
 
