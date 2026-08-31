@@ -58,7 +58,7 @@ const REWARD_MINT = new PublicKey(
 );
 
 const DEV_WALLET = new PublicKey(
-  "4o64Eztc5YXskG7qsU6kRQrzWpLSYxSMh9AV2ohy69ZQ"
+  "9zjFSQDmj7SQuAXtvwDYWFcYHtrKvdL6sPkaMoBLezT8"
 );
 
 const POOL_SEED = Buffer.from("staking_pool");
