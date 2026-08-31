@@ -833,24 +833,15 @@ export default function StakingDashboard() {
         );
       }
 
-      const code =
-        referralCode.trim();
-
-      if (!code) {
-        throw new Error(
-          "Masukkan referral code."
-        );
-      }
-
       /*
        * ROOT / DEV:
        *
-       * Root belum mempunyai referrer sebelumnya.
-       * Karena itu ROOT tidak perlu mencari kode
-       * referral di blockchain.
+       * ROOT tidak mempunyai referrer sebelumnya.
+       * ROOT menggunakan PublicKey.default sebagai
+       * referrer sesuai smart contract.
        *
-       * Smart contract memang menggunakan
-       * PublicKey.default sebagai referrer ROOT.
+       * ROOT tidak perlu memasukkan atau memverifikasi
+       * referral code dari wallet lain.
        */
       if (publicKey.equals(DEV_WALLET)) {
         setReferralVerified(true);
@@ -861,13 +852,22 @@ export default function StakingDashboard() {
         console.log(
           "ROOT REFERRAL VERIFIED:",
           {
-            code,
+            code: ownReferralCode,
             referrer:
               PublicKey.default.toBase58(),
           }
         );
 
         return;
+      }
+
+      const code =
+        referralCode.trim();
+
+      if (!code) {
+        throw new Error(
+          "Masukkan referral code."
+        );
       }
 
       /*
