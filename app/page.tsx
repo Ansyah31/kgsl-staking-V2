@@ -3501,7 +3501,7 @@ export default function StakingDashboard() {
             />
 
             <div className="mt-1 text-center text-xs font-semibold text-zinc-500">
-              +{rewardBalance.toLocaleString(undefined, {
+              +{rewardBalance.toLocaleString(language === "id" ? "id-ID" : "en-US", {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 9,
               })} REWARD
@@ -4059,7 +4059,7 @@ export default function StakingDashboard() {
                             : "STAKED"}
                         </div>
                         <div className="mt-1 text-sm font-bold text-white">
-                          {item.amount.toLocaleString()} KGSL
+                          {formatToken(item.amount, language)} KGSL
                         </div>
                       </div>
 
@@ -4070,7 +4070,7 @@ export default function StakingDashboard() {
                             : "COMPOUND"}
                         </div>
                         <div className="mt-1 text-sm font-bold text-white">
-                          {item.compoundBalance.toLocaleString()} KGSL
+                          {formatToken(item.compoundBalance, language)} KGSL
                         </div>
                       </div>
 
