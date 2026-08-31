@@ -1,0 +1,575 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #f5f5f5;
+
+  --kgsl-gold: #d4af37;
+  --kgsl-gold-light: #f5d76e;
+  --kgsl-dark: #080808;
+  --kgsl-card: #101010;
+  --kgsl-card-2: #151515;
+  --kgsl-border: rgba(212, 175, 55, 0.25);
+  --kgsl-green: #22c55e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(212, 175, 55, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #050505 0%,
+      #080808 45%,
+      #030303 100%
+    );
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.35);
+  color: white;
+}
+
+/* ============================================================
+   KGSL SCROLLBAR
+============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3018;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kgsl-gold);
+}
+
+/* ============================================================
+   WALLET ADAPTER
+============================================================ */
+
+.wallet-adapter-button {
+  background: linear-gradient(
+    135deg,
+    #d4af37,
+    #f5d76e
+  ) !important;
+
+  color: #080808 !important;
+  font-weight: 900 !important;
+  border-radius: 14px !important;
+  min-height: 46px !important;
+
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.wallet-adapter-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+/* ============================================================
+   KGSL CARD
+============================================================ */
+
+.kgsl-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  border: 1px solid var(--kgsl-border);
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   GOLD TEXT
+============================================================ */
+
+.kgsl-gold {
+  color: var(--kgsl-gold-light);
+}
+
+.kgsl-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #d4af37,
+    #fff1a8,
+    #d4af37
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============================================================
+   GLOW
+============================================================ */
+
+.kgsl-glow {
+  box-shadow:
+    0 0 25px rgba(212, 175, 55, 0.12),
+    0 0 70px rgba(212, 175, 55, 0.05);
+}
+
+.kgsl-glow-strong {
+  box-shadow:
+    0 0 25px rgba(212, 175, 55, 0.25),
+    0 0 80px rgba(212, 175, 55, 0.08);
+}
+
+/* ============================================================
+   INPUT
+============================================================ */
+
+.kgsl-input {
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  border-radius: 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.kgsl-input:focus {
+  border-color: var(--kgsl-gold);
+  box-shadow:
+    0 0 0 3px rgba(212, 175, 55, 0.08);
+}
+
+.kgsl-input::placeholder {
+  color: #666;
+}
+
+/* ============================================================
+   GOLD BUTTON
+============================================================ */
+
+.kgsl-button {
+  background:
+    linear-gradient(
+      135deg,
+      #b88a18,
+      #f5d76e
+    );
+
+  color: #080808;
+  font-weight: 900;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 30px rgba(212, 175, 55, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.kgsl-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 35px rgba(212, 175, 55, 0.22);
+}
+
+.kgsl-button:disabled {
+  opacity: 0.4;
+}
+
+/* ============================================================
+   LOCK BUTTON
+============================================================ */
+
+.kgsl-lock {
+  background: #0b0b0b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.kgsl-lock:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  color: white;
+}
+
+.kgsl-lock-active {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.2),
+      rgba(212, 175, 55, 0.08)
+    );
+
+  border-color: var(--kgsl-gold);
+  color: var(--kgsl-gold-light);
+
+  box-shadow:
+    inset 0 0 20px rgba(212, 175, 55, 0.05),
+    0 0 20px rgba(212, 175, 55, 0.08);
+}
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+.kgsl-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+
+  color: #86efac;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.kgsl-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+
+  box-shadow:
+    0 0 10px rgba(34, 197, 94, 0.8);
+}
+
+/* ============================================================
+   ANIMATION
+============================================================ */
+
+@keyframes kgsl-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.kgsl-pulse {
+  animation: kgsl-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   KGSL LIGHT MODE
+============================================================ */
+
+html.light-mode {
+  background: #f5f5f5;
+}
+
+html.light-mode body {
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(212, 175, 55, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f5f5f5 50%,
+      #eeeeee 100%
+    );
+
+  color: #171717;
+}
+
+html.light-mode .kgsl-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(250, 250, 250, 0.90)
+    );
+
+  border-color: rgba(180, 140, 30, 0.30);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+html.light-mode .kgsl-input {
+  background: #ffffff;
+  color: #171717;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+html.light-mode .kgsl-input::placeholder {
+  color: #888888;
+}
+
+html.light-mode ::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb {
+  background: #c9b15a;
+}
+
+html.light-mode .text-white {
+  color: #171717 !important;
+}
+
+html.light-mode .text-zinc-500 {
+  color: #737373 !important;
+}
+
+html.light-mode .text-zinc-600 {
+  color: #666666 !important;
+}
+
+html.light-mode .text-zinc-400 {
+  color: #525252 !important;
+}
+
+html.light-mode .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-mode .bg-black\/30 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+html.light-mode .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+
+/* ============================================================
+   FULL PAGE LIGHT MODE
+============================================================ */
+
+html.light-mode body {
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(212, 175, 55, 0.10),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f7f7f7 45%,
+      #eaeaea 100%
+    ) !important;
+
+  color: #171717;
+}
+
+html.light-mode main {
+  background: transparent !important;
+}
+
+/* Area yang masih menggunakan background hitam Tailwind */
+html.light-mode .bg-\[\#050505\] {
+  background: transparent !important;
+}
+
+html.light-mode .bg-\[\#080808\] {
+  background: #ffffff !important;
+}
+
+html.light-mode .bg-\[\#101010\] {
+  background: #ffffff !important;
+}
+
+html.light-mode .bg-\[\#151515\] {
+  background: #f8f8f8 !important;
+}
+
+/* Input tetap terang */
+html.light-mode input,
+html.light-mode textarea,
+html.light-mode select {
+  background: #ffffff !important;
+  color: #171717 !important;
+}
+
+/* Elemen dengan background hitam transparan */
+html.light-mode .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.035) !important;
+}
+
+html.light-mode .bg-black\/30 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light-mode .bg-black\/70 {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+}
+
+
+/* ============================================================
+   KGSL LIGHT MODE - SOFT / DARKER
+============================================================ */
+
+html.light-mode body {
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(212, 175, 55, 0.08),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #e7e7e7 0%,
+      #dedede 45%,
+      #d4d4d4 100%
+    ) !important;
+
+  color: #181818;
+}
+
+html.light-mode .kgsl-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(250, 250, 250, 0.92),
+      rgba(232, 232, 232, 0.92)
+    ) !important;
+
+  border-color: rgba(120, 95, 25, 0.28);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+html.light-mode .kgsl-input {
+  background: #eeeeee !important;
+  border-color: rgba(0, 0, 0, 0.16);
+  color: #181818 !important;
+}
+
+html.light-mode .bg-\[\#050505\] {
+  background: transparent !important;
+}
+
+html.light-mode .bg-\[\#080808\] {
+  background: #eeeeee !important;
+}
+
+html.light-mode .bg-\[\#101010\] {
+  background: #e9e9e9 !important;
+}
+
+html.light-mode .bg-\[\#151515\] {
+  background: #e2e2e2 !important;
+}
+
+html.light-mode .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.045) !important;
+}
+
+html.light-mode .bg-black\/30 {
+  background-color: rgba(0, 0, 0, 0.065) !important;
+}
+
+html.light-mode .bg-black\/70 {
+  background-color: rgba(235, 235, 235, 0.92) !important;
+}
+
+html.light-mode .text-white {
+  color: #181818 !important;
+}
+
+html.light-mode .text-zinc-500 {
+  color: #666666 !important;
+}
+
+html.light-mode .text-zinc-600 {
+  color: #595959 !important;
+}
+
+html.light-mode .text-zinc-400 {
+  color: #4d4d4d !important;
+}
+
+html.light-mode .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+html.light-mode .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.14) !important;
+}
+

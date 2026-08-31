@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+.env
+.env.*
+*.key
+*.pem
+*.json.backup*
+*.bak
