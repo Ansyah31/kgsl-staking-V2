@@ -108,7 +108,7 @@ async function findNextAvailablePosition(
   );
 }
 
-const DECIMALS = 9;
+const DECIMALS = 6;
 
 const LOCKS = [
   { days: 7, label: "7 Hari" },
