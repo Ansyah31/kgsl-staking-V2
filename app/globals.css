@@ -573,3 +573,283 @@ html.light-mode .border-white\/20 {
   border-color: rgba(0, 0, 0, 0.14) !important;
 }
 
+
+/* ============================================================
+   KGSL MOBILE RESPONSIVE
+   Desktop tetap seperti semula.
+============================================================ */
+
+@media (max-width: 767px) {
+
+  /* ---------- PAGE ---------- */
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-width: 0;
+  }
+
+  /* ---------- MAIN ---------- */
+
+  main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 12px !important;
+    padding-bottom: 24px !important;
+  }
+
+  main > div {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* ---------- LANGUAGE / DARK BUTTON ---------- */
+
+  .fixed.right-4.top-4 {
+    position: static !important;
+    width: 100%;
+    display: flex !important;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .fixed.right-4.top-4 button {
+    min-height: 36px !important;
+    padding: 7px 11px !important;
+    border-radius: 12px !important;
+    font-size: 10px !important;
+  }
+
+  /* ---------- CARD ---------- */
+
+  .kgsl-card {
+    border-radius: 18px;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  header.kgsl-card {
+    padding: 14px !important;
+  }
+
+  header.kgsl-card > div {
+    gap: 14px !important;
+  }
+
+  header.kgsl-card .h-14.w-14 {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    border-radius: 14px !important;
+  }
+
+  header.kgsl-card .flex.items-center.gap-4 {
+    gap: 11px !important;
+  }
+
+  header.kgsl-card h1 {
+    font-size: 21px !important;
+    line-height: 1.05 !important;
+  }
+
+  header.kgsl-card .text-xs.font-bold.tracking-\[0\.28em\] {
+    font-size: 8px !important;
+    letter-spacing: 0.22em !important;
+  }
+
+  header.kgsl-card .kgsl-status {
+    font-size: 9px !important;
+    padding: 5px 8px !important;
+  }
+
+  /* Header action buttons */
+  header.kgsl-card > div > div:last-child {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px !important;
+  }
+
+  header.kgsl-card > div > div:last-child a,
+  header.kgsl-card > div > div:last-child button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    height: 42px !important;
+    padding: 8px 6px !important;
+    border-radius: 12px !important;
+    font-size: 10px !important;
+    white-space: nowrap;
+  }
+
+  /* ---------- STATISTICS ---------- */
+
+  section.grid.grid-cols-2 {
+    gap: 8px !important;
+  }
+
+  section.grid.grid-cols-2 > div {
+    min-width: 0;
+  }
+
+  section.grid.grid-cols-2 .kgsl-card {
+    padding: 13px !important;
+    min-height: 78px;
+  }
+
+  section.grid.grid-cols-2 .text-\[10px\] {
+    font-size: 8px !important;
+    letter-spacing: 0.10em !important;
+  }
+
+  section.grid.grid-cols-2 .text-xl {
+    font-size: 18px !important;
+  }
+
+  section.grid.grid-cols-2 .text-xs {
+    font-size: 9px !important;
+  }
+
+  /* ---------- REWARD OVERVIEW ---------- */
+
+  .kgsl-card.p-5.md\:p-6 {
+    padding: 15px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-6 h2 {
+    font-size: 20px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-6 .mt-5.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-6 .mt-5.grid button {
+    min-width: 0;
+    padding: 13px 6px !important;
+    border-radius: 14px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-6 .mt-5.grid button .text-lg {
+    font-size: 17px !important;
+  }
+
+  /* Last 120 days card */
+  .kgsl-card.p-5.md\:p-6 .mt-5.grid button:last-child {
+    grid-column: span 1;
+  }
+
+  /* ---------- STAKING ---------- */
+
+  .kgsl-card.kgsl-glow.p-5.md\:p-7 {
+    padding: 15px !important;
+  }
+
+  .kgsl-card.kgsl-glow.p-5.md\:p-7 h2 {
+    font-size: 22px !important;
+  }
+
+  .kgsl-card.kgsl-glow.p-5.md\:p-7 .grid.grid-cols-5 {
+    gap: 5px !important;
+  }
+
+  .kgsl-card.kgsl-glow.p-5.md\:p-7 .grid.grid-cols-5 button {
+    padding: 10px 3px !important;
+    font-size: 10px !important;
+    min-width: 0;
+  }
+
+  .kgsl-input {
+    min-height: 52px;
+    font-size: 16px !important;
+  }
+
+  /* ---------- POSITION ---------- */
+
+  .kgsl-card.p-5.md\:p-7 {
+    padding: 15px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-7 h2 {
+    font-size: 21px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-7 .grid.grid-cols-2 {
+    gap: 8px !important;
+  }
+
+  .kgsl-card.p-5.md\:p-7 .grid.grid-cols-2 > * {
+    min-width: 0;
+  }
+
+  /* ---------- POSITION CARDS ---------- */
+
+  .kgsl-card.p-5.md\:p-7 .rounded-2xl {
+    min-width: 0;
+  }
+
+  /* ---------- BUTTONS ---------- */
+
+  .kgsl-button {
+    min-height: 44px;
+  }
+
+  /* ---------- REFERRAL ---------- */
+
+  .kgsl-card.p-5.md\:p-7 .md\:grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* ---------- LONG WALLET / PDA TEXT ---------- */
+
+  .break-all {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* ---------- GENERAL TEXT ---------- */
+
+  p {
+    overflow-wrap: break-word;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 390px) {
+
+  main {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  header.kgsl-card h1 {
+    font-size: 19px !important;
+  }
+
+  header.kgsl-card .h-14.w-14 {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  header.kgsl-card > div > div:last-child a,
+  header.kgsl-card > div > div:last-child button {
+    font-size: 9px !important;
+  }
+
+  .kgsl-card {
+    border-radius: 16px;
+  }
+}
+
