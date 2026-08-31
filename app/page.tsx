@@ -1735,9 +1735,9 @@ export default function StakingDashboard() {
 
             compoundBalance:
               tokenAmount(
-                Math.floor(
-                  simulatedBalanceFp /
-                    ratePrecision
+                Number(
+                  simulatedBalanceFpBig /
+                    ratePrecisionBig
                 )
               ),
 
