@@ -3355,7 +3355,7 @@ export default function StakingDashboard() {
   const t = TEXT[language];
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white px-4 py-5 md:px-8 md:py-8">
+    <main className="kgsl-mobile-page min-h-screen bg-[#050505] text-white px-4 py-5 md:px-8 md:py-8">
       <div className="fixed right-4 top-4 z-50 flex gap-2">
         <button
           type="button"
