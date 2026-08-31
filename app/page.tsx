@@ -285,6 +285,20 @@ function tokenAmount(raw: any): number {
   );
 }
 
+function formatToken(
+  value: number,
+  language: "id" | "en",
+  decimals = 6
+): string {
+  return new Intl.NumberFormat(
+    language === "id" ? "id-ID" : "en-US",
+    {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    }
+  ).format(value);
+}
+
 /* ============================================================
    MAIN
 ============================================================ */
@@ -3855,17 +3869,17 @@ export default function StakingDashboard() {
             <div className="mt-6 grid grid-cols-2 gap-3">
               <PositionCard
                 label={t.staked}
-                value={`${stake.amount.toLocaleString()} KGSL`}
+                value={`${formatToken(stake.amount, language)} KGSL`}
               />
 
               <PositionCard
                 label={t.compoundBalance}
-                value={`${stake.compoundBalance.toLocaleString()} KGSL`}
+                value={`${formatToken(stake.compoundBalance, language)} KGSL`}
               />
 
               <PositionCard
                 label={t.accruedReward}
-                value={`${stake.accruedReward.toFixed(6)} KGSL`}
+                value={`${formatToken(stake.accruedReward, language, 6)} KGSL`}
                 gold
               />
 
