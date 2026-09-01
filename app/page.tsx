@@ -3886,7 +3886,7 @@ export default function StakingDashboard() {
 
               <PositionCard
                 label={t.accruedReward}
-                value={`${formatToken(stake.accruedReward, language, 6)} KGSL`}
+                value={`${formatToken(stake.accruedReward, language, 3)} KGSL`}
                 gold
               />
 
