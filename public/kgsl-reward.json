@@ -1,0 +1,6 @@
+{
+  "name": "KGSL Reward",
+  "symbol": "KGSL-R",
+  "description": "KGSL staking reward token on Solana Devnet.",
+  "seller_fee_basis_points": 0
+}
