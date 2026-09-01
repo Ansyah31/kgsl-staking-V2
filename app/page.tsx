@@ -4077,7 +4077,7 @@ export default function StakingDashboard() {
                             : "COMPOUND"}
                         </div>
                         <div className="mt-1 text-sm font-bold text-white">
-                          {formatToken(item.compoundBalance, language)} KGSL
+                          {formatToken(item.compoundBalance, language, 3)} KGSL
                         </div>
                       </div>
 
