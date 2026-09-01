@@ -2782,7 +2782,7 @@ export default function StakingDashboard() {
         );
 
       const rewardVault = new PublicKey(
-        "CuUj2KyJXTtjh21jHuHruJK6C3X6oQCrKEfFNxUomNNn"
+        "DbTSS3ejMHCQTH6wt1ma5tygVWnQeSXg3JmipWFmBw7F"
       );
 
       /* ------------------------------------------------------
@@ -3094,7 +3094,7 @@ export default function StakingDashboard() {
 
       const rewardVault =
         new PublicKey(
-          "CuUj2KyJXTtjh21jHuHruJK6C3X6oQCrKEfFNxUomNNn"
+          "DbTSS3ejMHCQTH6wt1ma5tygVWnQeSXg3JmipWFmBw7F"
         );
 
       console.log("=== UNSTAKE ACCOUNT DEBUG ===");
