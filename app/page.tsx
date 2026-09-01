@@ -3516,6 +3516,7 @@ export default function StakingDashboard() {
             value={totalPendingReward}
             suffix="KGSL"
             language={language}
+            decimals={3}
           />
 
 
@@ -4527,11 +4528,13 @@ function Stat({
   value,
   suffix,
   language,
+  decimals = 6,
 }: {
   title: string;
   value: number;
   suffix: string;
   language: "id" | "en";
+  decimals?: number;
 }) {
   return (
     <div className="kgsl-card p-4 md:p-5">
@@ -4544,7 +4547,7 @@ function Stat({
           {value.toLocaleString(
             language === "id" ? "id-ID" : "en-US",
             {
-              maximumFractionDigits: 6,
+              maximumFractionDigits: decimals,
             }
           )}
         </span>
