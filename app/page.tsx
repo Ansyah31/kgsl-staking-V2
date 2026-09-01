@@ -3881,7 +3881,7 @@ export default function StakingDashboard() {
 
               <PositionCard
                 label={t.compoundBalance}
-                value={`${formatToken(stake.compoundBalance, language)} KGSL`}
+                value={`${formatToken(stake.compoundBalance, language, 3)} KGSL`}
               />
 
               <PositionCard
