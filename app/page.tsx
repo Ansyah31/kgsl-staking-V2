@@ -2750,8 +2750,12 @@ export default function StakingDashboard() {
         getProgram();
 
       const ownerRewardAccount =
-        new PublicKey(
-          "DbnVmKL2Kc6WmwjZcmTYe8UmUctoVxqW6uatzHwinJ12"
+        getAssociatedTokenAddressSync(
+          rewardMint,
+          publicKey,
+          false,
+          TOKEN_PROGRAM_ID,
+          ASSOCIATED_TOKEN_PROGRAM_ID
         );
 
       const devRewardAccount =
