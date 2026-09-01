@@ -3434,11 +3434,11 @@ export default function StakingDashboard() {
 
       {successModal && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 dark:bg-black/80 backdrop-blur-md p-4"
           onClick={() => setSuccessModal(null)}
         >
           <div
-            className="w-full max-w-md overflow-hidden rounded-3xl border border-[#d4af37]/60 bg-[#0b0a08] shadow-2xl shadow-black/70"
+            className="w-full max-w-md overflow-hidden rounded-3xl border border-[#d4af37]/60 bg-white dark:bg-[#0b0a08] shadow-2xl shadow-black/70"
             onClick={(e) => e.stopPropagation()}
           >
 
@@ -3451,11 +3451,11 @@ export default function StakingDashboard() {
                 </span>
               </div>
 
-              <h2 className="mt-5 text-2xl font-black text-[#f5d76e]">
+              <h2 className="mt-5 text-2xl font-black text-[#9a7410] dark:text-[#f5d76e]">
                 {successModal.title}
               </h2>
 
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                 {successModal.message}
               </p>
 
@@ -3466,7 +3466,7 @@ export default function StakingDashboard() {
 
             {/* AMOUNT */}
             {successModal.amount && (
-              <div className="mx-6 mt-5 rounded-2xl border border-[#d4af37]/20 bg-[#12100b] p-5 text-center">
+              <div className="mx-6 mt-5 rounded-2xl border border-[#d4af37]/30 bg-[#d4af37]/[0.05] dark:border-[#d4af37]/20 dark:bg-[#12100b] p-5 text-center">
 
                 <div className="text-[10px] font-bold tracking-[0.2em] text-slate-500">
                   {successModal.title.toLowerCase().includes("reward")
@@ -3486,7 +3486,7 @@ export default function StakingDashboard() {
             )}
 
             {/* TRANSACTION */}
-            <div className="mx-6 mt-4 rounded-2xl border border-white/10 bg-[#10100d] p-4">
+            <div className="mx-6 mt-4 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-[#10100d] p-4">
 
               <div className="text-[10px] font-bold tracking-[0.18em] text-slate-500">
                 TRANSACTION SIGNATURE
@@ -3494,7 +3494,7 @@ export default function StakingDashboard() {
 
               <div className="mt-2 flex items-start gap-2">
 
-                <div className="min-w-0 flex-1 break-all font-mono text-xs leading-relaxed text-slate-300">
+                <div className="min-w-0 flex-1 break-all font-mono text-xs leading-relaxed text-slate-700 dark:text-slate-300">
                   {successModal.signature}
                 </div>
 
@@ -3537,7 +3537,7 @@ export default function StakingDashboard() {
               <button
                 type="button"
                 onClick={() => setSuccessModal(null)}
-                className="text-sm font-bold text-[#d4af37] transition hover:text-[#f5d76e]"
+                className="text-sm font-bold text-[#d4af37] transition hover:text-[#9a7410] dark:text-[#f5d76e]"
               >
                 TUTUP
               </button>
@@ -3561,7 +3561,7 @@ export default function StakingDashboard() {
               value === "id" ? "en" : "id"
             )
           }
-          className="rounded-xl border border-[#d4af37]/40 bg-black/70 px-3 py-2 text-xs font-black text-[#f5d76e] shadow-lg backdrop-blur transition hover:bg-black"
+          className="rounded-xl border border-[#d4af37]/40 bg-black/70 px-3 py-2 text-xs font-black text-[#9a7410] dark:text-[#f5d76e] shadow-lg backdrop-blur transition hover:bg-black"
         >
           {language === "id" ? "🇮🇩 ID" : "🇬🇧 EN"}
         </button>
@@ -3569,7 +3569,7 @@ export default function StakingDashboard() {
         <button
           type="button"
           onClick={() => setLightMode((value) => !value)}
-          className="rounded-xl border border-[#d4af37]/40 bg-black/70 px-4 py-2 text-xs font-black text-[#f5d76e] shadow-lg backdrop-blur transition hover:bg-black"
+          className="rounded-xl border border-[#d4af37]/40 bg-black/70 px-4 py-2 text-xs font-black text-[#9a7410] dark:text-[#f5d76e] shadow-lg backdrop-blur transition hover:bg-black"
         >
           {lightMode ? "☀️ LIGHT" : "🌙 DARK"}
         </button>
@@ -3712,7 +3712,7 @@ export default function StakingDashboard() {
                   ? "PERIODE TERPILIH"
                   : "SELECTED PERIOD"}
               </div>
-              <div className="font-black text-[#f5d76e]">
+              <div className="font-black text-[#9a7410] dark:text-[#f5d76e]">
                 {lockDays} {language === "id" ? "HARI" : "DAYS"} • {selectedReward}
               </div>
             </div>
@@ -3771,7 +3771,7 @@ export default function StakingDashboard() {
                   {item.days} {language === "id" ? "HARI" : "DAYS"}
                 </div>
 
-                <div className="mt-2 text-lg font-black text-[#f5d76e]">
+                <div className="mt-2 text-lg font-black text-[#9a7410] dark:text-[#f5d76e]">
                   {reward}
                 </div>
 
@@ -3898,7 +3898,7 @@ export default function StakingDashboard() {
                   walletBalance <= 0 ||
                   loading
                 }
-                className="mt-2 text-xs font-bold text-[#d4af37] hover:text-[#f5d76e] disabled:opacity-30"
+                className="mt-2 text-xs font-bold text-[#d4af37] hover:text-[#9a7410] dark:text-[#f5d76e] disabled:opacity-30"
               >
                 {language === "id"
                   ? "GUNAKAN SALDO MAKSIMAL"
@@ -3915,7 +3915,7 @@ export default function StakingDashboard() {
                     : "LOCK PERIOD"}
                 </label>
 
-                <span className="text-xs font-black text-[#f5d76e]">
+                <span className="text-xs font-black text-[#9a7410] dark:text-[#f5d76e]">
                   {lockDays} {language === "id" ? "HARI" : "DAYS"}
                 </span>
               </div>
@@ -3950,7 +3950,7 @@ export default function StakingDashboard() {
                     : "ESTIMATED REWARD"}
                 </span>
 
-                <span className="text-xl font-black text-[#f5d76e]">
+                <span className="text-xl font-black text-[#9a7410] dark:text-[#f5d76e]">
                   {selectedReward}
                 </span>
               </div>
@@ -4016,7 +4016,7 @@ export default function StakingDashboard() {
                 <div
                   className={`rounded-xl px-3 py-2 shrink-0 whitespace-nowrap text-[10px] font-black ${
                     locked
-                      ? "border border-[#d4af37]/30 bg-[#d4af37]/10 text-[#f5d76e]"
+                      ? "border border-[#d4af37]/30 bg-[#d4af37]/10 text-[#9a7410] dark:text-[#f5d76e]"
                       : "border border-green-500/30 bg-green-500/10 text-green-400"
                   }`}
                 >
@@ -4337,7 +4337,7 @@ export default function StakingDashboard() {
                 >
                   <div className="flex items-end justify-between">
                     <div>
-                      <div className="text-3xl font-black text-[#f5d76e]">
+                      <div className="text-3xl font-black text-[#9a7410] dark:text-[#f5d76e]">
                         {item.count}
                       </div>
 
@@ -4395,7 +4395,7 @@ export default function StakingDashboard() {
                   {t.referralCode}
                 </div>
 
-                <div className="mt-1 break-all text-lg font-black text-[#f5d76e]">
+                <div className="mt-1 break-all text-lg font-black text-[#9a7410] dark:text-[#f5d76e]">
                   {myReferralCode ||
                     (language === "id"
                       ? "BELUM TERDAFTAR"
@@ -4457,7 +4457,7 @@ export default function StakingDashboard() {
                         );
                       }
                     }}
-                    className="mt-2 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-2 shrink-0 whitespace-nowrap text-[10px] font-black text-[#f5d76e] transition hover:bg-[#d4af37]/20"
+                    className="mt-2 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-2 shrink-0 whitespace-nowrap text-[10px] font-black text-[#9a7410] dark:text-[#f5d76e] transition hover:bg-[#d4af37]/20"
                   >
                     COPY {t.referralLink}
                   </button>
@@ -4545,7 +4545,7 @@ export default function StakingDashboard() {
                     !referralVerified
                   )
                 }
-                className="mt-3 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-3 text-xs font-black text-[#f5d76e] transition hover:bg-[#d4af37]/20 disabled:opacity-30"
+                className="mt-3 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-3 text-xs font-black text-[#9a7410] dark:text-[#f5d76e] transition hover:bg-[#d4af37]/20 disabled:opacity-30"
               >
                 {loading
                   ? language === "id"
@@ -4626,7 +4626,7 @@ export default function StakingDashboard() {
             CONTRACT DETAILS
         ===================================================== */}
         <details className="kgsl-card group p-5">
-          <summary className="cursor-pointer list-none text-sm font-black text-[#f5d76e]">
+          <summary className="cursor-pointer list-none text-sm font-black text-[#9a7410] dark:text-[#f5d76e]">
             SMART CONTRACT DETAILS
             <span className="float-right text-zinc-600 group-open:rotate-180">
               ▼
@@ -4736,7 +4736,7 @@ function PositionCard({
 
       <div
         className={`mt-2 break-words text-sm font-black ${
-          gold ? "text-[#f5d76e]" : "text-white"
+          gold ? "text-[#9a7410] dark:text-[#f5d76e]" : "text-white"
         }`}
       >
         {value}
