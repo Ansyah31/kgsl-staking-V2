@@ -4022,21 +4022,21 @@ export default function StakingDashboard() {
 
                       setStake(item);
                     }}
-                    className={`w-full rounded-2xl border p-4 text-left transition ${
+                    className={`w-full min-w-0 overflow-hidden rounded-2xl border p-4 text-left transition ${
                       isSelected
                         ? "border-[#d4af37]/60 bg-[#d4af37]/10"
                         : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
+                    <div className="flex min-w-0 items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
                         <div className="text-sm font-black text-white">
                           {language === "id"
                             ? `Posisi #${item.positionId}`
                             : `Position #${item.positionId}`}
                         </div>
 
-                        <div className="mt-1 text-xs text-zinc-500">
+                        <div className="mt-1 min-w-0 break-all text-xs text-zinc-500">
                           {item.pda?.toBase58?.() ?? "-"}
                         </div>
                       </div>
