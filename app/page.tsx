@@ -3303,12 +3303,11 @@ export default function StakingDashboard() {
 
       await refresh();
 
-      alert(
-        "Unstake berhasil.\n\n" +
-        "Reward final otomatis dibayarkan.\n" +
-        "Principal otomatis dikembalikan.\n\n" +
-        `Transaction:\n${sig}`
-      );
+      setSuccessModal({
+        title: "Unstake berhasil!",
+        message: "Reward final otomatis dibayarkan dan principal dikembalikan.",
+        signature: sig,
+      });
     } catch (e: any) {
       console.error(
         "UNSTAKE + REWARD ERROR",
