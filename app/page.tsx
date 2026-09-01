@@ -3671,7 +3671,7 @@ export default function StakingDashboard() {
               </div>
 
               <div
-                className={`rounded-xl px-3 py-2 text-[10px] font-black ${
+                className={`rounded-xl px-3 py-2 shrink-0 whitespace-nowrap text-[10px] font-black ${
                   poolExists
                     ? "border border-green-500/20 bg-green-500/10 text-green-400"
                     : "border border-red-500/20 bg-red-500/10 text-red-400"
@@ -3689,7 +3689,7 @@ export default function StakingDashboard() {
 
             {/* AMOUNT */}
             <div className="mt-7">
-              <div className="flex items-center justify-between">
+              <div className="flex min-w-0 items-start justify-between gap-3">
                 <label className="text-xs font-bold tracking-wider text-zinc-400">
                   {language === "id"
                     ? "JUMLAH YANG DI-STAKE"
@@ -3748,7 +3748,7 @@ export default function StakingDashboard() {
 
             {/* LOCK */}
             <div className="mt-6">
-              <div className="flex items-center justify-between">
+              <div className="flex min-w-0 items-start justify-between gap-3">
                 <label className="text-xs font-bold tracking-wider text-zinc-400">
                   {language === "id"
                     ? "PERIODE LOCK"
@@ -3783,7 +3783,7 @@ export default function StakingDashboard() {
 
             {/* SELECTED REWARD */}
             <div className="mt-5 rounded-2xl border border-[#d4af37]/20 bg-[#d4af37]/5 p-4">
-              <div className="flex items-center justify-between">
+              <div className="flex min-w-0 items-start justify-between gap-3">
                 <span className="text-xs text-zinc-500">
                   {language === "id"
                     ? "ESTIMASI REWARD"
@@ -3854,7 +3854,7 @@ export default function StakingDashboard() {
 
               {stake.amount > 0 && (
                 <div
-                  className={`rounded-xl px-3 py-2 text-[10px] font-black ${
+                  className={`rounded-xl px-3 py-2 shrink-0 whitespace-nowrap text-[10px] font-black ${
                     locked
                       ? "border border-[#d4af37]/30 bg-[#d4af37]/10 text-[#f5d76e]"
                       : "border border-green-500/30 bg-green-500/10 text-green-400"
@@ -4042,7 +4042,7 @@ export default function StakingDashboard() {
                       </div>
 
                       <div
-                        className={`rounded-lg px-2 py-1 text-[10px] font-black ${
+                        className={`rounded-lg px-2 py-1 shrink-0 whitespace-nowrap text-[10px] font-black ${
                           isLocked
                             ? "bg-yellow-500/10 text-yellow-300"
                             : "bg-green-500/10 text-green-300"
@@ -4297,7 +4297,7 @@ export default function StakingDashboard() {
                         );
                       }
                     }}
-                    className="mt-2 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-2 text-[10px] font-black text-[#f5d76e] transition hover:bg-[#d4af37]/20"
+                    className="mt-2 w-full rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 py-2 shrink-0 whitespace-nowrap text-[10px] font-black text-[#f5d76e] transition hover:bg-[#d4af37]/20"
                   >
                     COPY {t.referralLink}
                   </button>
