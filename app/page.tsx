@@ -54,7 +54,7 @@ const KGSL_MINT = new PublicKey(
 );
 
 const REWARD_MINT = new PublicKey(
-  "FrY8qPEJxV2W4pExqvQ93sc6Ec7h5LP6Gk8AALBdRz8Z"
+  "J4W7Cseg9M185SUQHn53ooBCMpyfdFzmCdh8VFU5Jg8z"
 );
 
 const DEV_WALLET = new PublicKey(
