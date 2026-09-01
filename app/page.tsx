@@ -391,6 +391,13 @@ export default function StakingDashboard() {
   const [error, setError] =
     useState("");
 
+  const [successModal, setSuccessModal] = useState<{
+    title: string;
+    message: string;
+    amount?: string;
+    signature: string;
+  } | null>(null);
+
   const [amount, setAmount] =
     useState("");
 
@@ -2693,12 +2700,12 @@ export default function StakingDashboard() {
 
       await refresh();
 
-      alert(
-        "Stake berhasil!\n\n" +
-        `${amount} KGSL\n` +
-        `${lockLabel}\n\n` +
-        `Transaction:\n${sig}`
-      );
+      setSuccessModal({
+        title: "Stake berhasil!",
+        message: `${lockLabel} berhasil dibuat.`,
+        amount: `${amount} KGSL`,
+        signature: sig,
+      });
     } catch (e: any) {
       console.error(
         "STAKE ERROR",
@@ -2940,10 +2947,12 @@ export default function StakingDashboard() {
 
       await refresh();
 
-      alert(
-        "Reward berhasil diklaim.\n\n" +
-        `Transaction:\n${sig}`
-      );
+      setSuccessModal({
+        title: "Reward berhasil diklaim!",
+        message: "Transaksi berhasil diproses di Solana Devnet.",
+        amount: `${stake.accruedReward.toFixed(6)} KGSL`,
+        signature: sig,
+      });
     } catch (e: any) {
       console.error(
         "CLAIM ERROR",
@@ -3329,6 +3338,127 @@ export default function StakingDashboard() {
   if (!mounted) {
     return (
       <main className="min-h-screen bg-[#050505] text-white flex items-center justify-center">
+
+      {/* =========================================================
+          SUCCESS MODAL
+      ========================================================= */}
+
+      {successModal && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
+          onClick={() => setSuccessModal(null)}
+        >
+          <div
+            className="w-full max-w-md overflow-hidden rounded-3xl border border-[#d4af37]/60 bg-[#0b0a08] shadow-2xl shadow-black/70"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            {/* SUCCESS ICON */}
+            <div className="px-6 pt-8 text-center">
+
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-2 border-emerald-400/70 bg-emerald-400/10 shadow-lg shadow-emerald-500/10">
+                <span className="text-4xl font-black text-emerald-400">
+                  ✓
+                </span>
+              </div>
+
+              <h2 className="mt-5 text-2xl font-black text-[#f5d76e]">
+                {successModal.title}
+              </h2>
+
+              <p className="mt-2 text-sm text-slate-400">
+                {successModal.message}
+              </p>
+
+            </div>
+
+            {/* DIVIDER */}
+            <div className="mx-6 mt-6 border-t border-white/10" />
+
+            {/* AMOUNT */}
+            {successModal.amount && (
+              <div className="mx-6 mt-5 rounded-2xl border border-[#d4af37]/20 bg-[#12100b] p-5 text-center">
+
+                <div className="text-[10px] font-bold tracking-[0.2em] text-slate-500">
+                  {successModal.title.toLowerCase().includes("reward")
+                    ? "REWARD DITERIMA"
+                    : "JUMLAH TRANSAKSI"}
+                </div>
+
+                <div className="mt-2 text-2xl font-black text-emerald-400">
+                  {successModal.amount}
+                </div>
+
+                <div className="mt-1 text-[10px] text-slate-500">
+                  KING SULAIMAN TOKEN
+                </div>
+
+              </div>
+            )}
+
+            {/* TRANSACTION */}
+            <div className="mx-6 mt-4 rounded-2xl border border-white/10 bg-[#10100d] p-4">
+
+              <div className="text-[10px] font-bold tracking-[0.18em] text-slate-500">
+                TRANSACTION SIGNATURE
+              </div>
+
+              <div className="mt-2 flex items-start gap-2">
+
+                <div className="min-w-0 flex-1 break-all font-mono text-xs leading-relaxed text-slate-300">
+                  {successModal.signature}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(
+                        successModal.signature
+                      );
+                    } catch {}
+                  }}
+                  className="shrink-0 rounded-lg border border-[#d4af37]/30 px-2.5 py-2 text-[#d4af37] transition hover:bg-[#d4af37]/10"
+                  title="Copy transaction"
+                >
+                  ⧉
+                </button>
+
+              </div>
+
+            </div>
+
+            {/* SOLSCAN */}
+            <div className="px-6 pt-5">
+
+              <a
+                href={`https://solscan.io/tx/${successModal.signature}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#b88a20] to-[#f0cf55] py-3.5 text-sm font-black text-black transition hover:brightness-110"
+              >
+                LIHAT DI SOLSCAN ↗
+              </a>
+
+            </div>
+
+            {/* CLOSE */}
+            <div className="px-6 py-5 text-center">
+
+              <button
+                type="button"
+                onClick={() => setSuccessModal(null)}
+                className="text-sm font-bold text-[#d4af37] transition hover:text-[#f5d76e]"
+              >
+                TUTUP
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      )}
+
         <div className="text-center">
           <div className="text-3xl font-black kgsl-gradient-text">
             KING SULAIMAN
