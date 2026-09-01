@@ -4088,7 +4088,7 @@ export default function StakingDashboard() {
                             : "ACCRUED"}
                         </div>
                         <div className="mt-1 text-sm font-bold text-[#d4af37]">
-                          +{item.accruedReward.toFixed(6)} KGSL
+                          +{formatToken(item.accruedReward, language, 3)} KGSL
                         </div>
                       </div>
 
