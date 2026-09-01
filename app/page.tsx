@@ -3503,12 +3503,6 @@ export default function StakingDashboard() {
               language={language}
             />
 
-            <div className="mt-1 text-center text-xs font-semibold text-zinc-500">
-              +{rewardBalance.toLocaleString(language === "id" ? "id-ID" : "en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 9,
-              })} REWARD
-            </div>
           </div>
 
           <Stat
