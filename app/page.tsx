@@ -3347,6 +3347,87 @@ export default function StakingDashboard() {
     return (
       <main className="min-h-screen bg-[#050505] text-white flex items-center justify-center">
 
+        <div className="text-center">
+          <div className="text-3xl font-black kgsl-gradient-text">
+            KING SULAIMAN
+          </div>
+          <div className="mt-2 text-sm text-zinc-500">
+            Loading KGSL Staking...
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const locked =
+    stake.unlockTime >
+    (
+      blockchainTime > 0
+        ? blockchainTime
+        : Math.floor(Date.now() / 1000)
+    );
+
+  // Reward periode terpilih menggunakan rumus yang sama
+  // dengan kartu DAILY COMPOUNDING di bawah.
+  const selectedRateFpMap: Record<number, number> = {
+    7: 5618684953663022,
+    15: 5143920841621519,
+    30: 26630327103109640,
+    60: 21098882129842568,
+    120: 12612857826115098,
+  };
+
+  const selectedRateFp =
+    selectedRateFpMap[lockDays] ??
+    selectedRateFpMap[7];
+
+  const selectedCompoundReward =
+    (
+      Math.pow(
+        1 +
+          selectedRateFp /
+            1_000_000_000_000_000_000,
+        lockDays
+      ) -
+      1
+    ) * 100;
+
+  const selectedReward =
+    `+${selectedCompoundReward.toFixed(2)}%`;
+
+  const unlockText = stake.unlockTime
+    ? new Date(stake.unlockTime * 1000).toLocaleString("id-ID")
+    : "-";
+
+  const remainingSeconds = stake.unlockTime
+    ? Math.max(
+        0,
+        stake.unlockTime -
+          (
+            blockchainTime > 0
+              ? blockchainTime
+              : Math.floor(Date.now() / 1000)
+          )
+      )
+    : 0;
+
+  const remainingDays = Math.floor(
+    remainingSeconds / 86400
+  );
+
+  const remainingHours = Math.floor(
+    (remainingSeconds % 86400) / 3600
+  );
+
+  const remainingMinutes = Math.floor(
+    (remainingSeconds % 3600) / 60
+  );
+
+  const t = TEXT[language];
+
+  return (
+    <main className="kgsl-mobile-page min-h-screen bg-[#050505] text-white px-4 py-5 md:px-8 md:py-8">
+
       {/* =========================================================
           SUCCESS MODAL
       ========================================================= */}
@@ -3470,86 +3551,8 @@ export default function StakingDashboard() {
 
 
 
-        <div className="text-center">
-          <div className="text-3xl font-black kgsl-gradient-text">
-            KING SULAIMAN
-          </div>
-          <div className="mt-2 text-sm text-zinc-500">
-            Loading KGSL Staking...
-          </div>
-        </div>
-      </main>
-    );
-  }
 
-  const locked =
-    stake.unlockTime >
-    (
-      blockchainTime > 0
-        ? blockchainTime
-        : Math.floor(Date.now() / 1000)
-    );
 
-  // Reward periode terpilih menggunakan rumus yang sama
-  // dengan kartu DAILY COMPOUNDING di bawah.
-  const selectedRateFpMap: Record<number, number> = {
-    7: 5618684953663022,
-    15: 5143920841621519,
-    30: 26630327103109640,
-    60: 21098882129842568,
-    120: 12612857826115098,
-  };
-
-  const selectedRateFp =
-    selectedRateFpMap[lockDays] ??
-    selectedRateFpMap[7];
-
-  const selectedCompoundReward =
-    (
-      Math.pow(
-        1 +
-          selectedRateFp /
-            1_000_000_000_000_000_000,
-        lockDays
-      ) -
-      1
-    ) * 100;
-
-  const selectedReward =
-    `+${selectedCompoundReward.toFixed(2)}%`;
-
-  const unlockText = stake.unlockTime
-    ? new Date(stake.unlockTime * 1000).toLocaleString("id-ID")
-    : "-";
-
-  const remainingSeconds = stake.unlockTime
-    ? Math.max(
-        0,
-        stake.unlockTime -
-          (
-            blockchainTime > 0
-              ? blockchainTime
-              : Math.floor(Date.now() / 1000)
-          )
-      )
-    : 0;
-
-  const remainingDays = Math.floor(
-    remainingSeconds / 86400
-  );
-
-  const remainingHours = Math.floor(
-    (remainingSeconds % 86400) / 3600
-  );
-
-  const remainingMinutes = Math.floor(
-    (remainingSeconds % 3600) / 60
-  );
-
-  const t = TEXT[language];
-
-  return (
-    <main className="kgsl-mobile-page min-h-screen bg-[#050505] text-white px-4 py-5 md:px-8 md:py-8">
       <div className="fixed right-4 top-4 z-50 flex gap-2">
         <button
           type="button"
