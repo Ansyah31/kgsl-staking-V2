@@ -2696,16 +2696,25 @@ export default function StakingDashboard() {
         sig
       );
 
-      setAmount("");
+      const successfulStakeAmount = amount;
 
-      await refresh();
+      setAmount("");
 
       setSuccessModal({
         title: "Stake berhasil!",
         message: `${lockLabel} berhasil dibuat.`,
-        amount: `${amount} KGSL`,
+        amount: `${successfulStakeAmount} KGSL`,
         signature: sig,
       });
+
+      try {
+        await refresh();
+      } catch (refreshError) {
+        console.warn(
+          "STAKE REFRESH AFTER SUCCESS FAILED:",
+          refreshError
+        );
+      }
     } catch (e: any) {
       console.error(
         "STAKE ERROR",
