@@ -415,6 +415,9 @@ export default function StakingDashboard() {
   const [rewardMint, setRewardMint] =
     useState(REWARD_MINT);
 
+  const [poolTreasury, setPoolTreasury] =
+    useState<PublicKey | null>(null);
+
   /* ==========================================================
      REFERRAL
   ========================================================== */
@@ -1340,6 +1343,12 @@ export default function StakingDashboard() {
               onChainRewardMint
             )
           );
+
+          setPoolTreasury(
+            pool.treasury
+              ? new PublicKey(pool.treasury)
+              : null
+          );
         } else {
           setPoolExists(false);
           setPoolTotal(0);
@@ -1351,6 +1360,8 @@ export default function StakingDashboard() {
           setRewardMint(
             REWARD_MINT
           );
+
+          setPoolTreasury(null);
         }
 
         /* ------------------------------------------------------
@@ -2758,10 +2769,16 @@ export default function StakingDashboard() {
           ASSOCIATED_TOKEN_PROGRAM_ID
         );
 
+      if (!poolTreasury) {
+        throw new Error(
+          "Treasury StakingPool tidak tersedia."
+        );
+      }
+
       const devRewardAccount =
         getAssociatedTokenAddressSync(
           rewardMint,
-          DEV_WALLET
+          poolTreasury
         );
 
       const rewardVault = new PublicKey(
