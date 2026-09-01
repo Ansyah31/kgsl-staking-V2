@@ -4022,14 +4022,14 @@ export default function StakingDashboard() {
 
                       setStake(item);
                     }}
-                    className={`w-full min-w-0 overflow-hidden rounded-2xl border p-4 text-left transition ${
+                    className={`w-full max-w-full min-w-0 overflow-hidden rounded-2xl border p-4 text-left transition ${
                       isSelected
                         ? "border-[#d4af37]/60 bg-[#d4af37]/10"
                         : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
                     }`}
                   >
-                    <div className="flex min-w-0 items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
+                    <div className="flex w-full min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                      <div className="min-w-0 flex-1 max-w-full">
                         <div className="text-sm font-black text-white">
                           {language === "id"
                             ? `Posisi #${item.positionId}`
@@ -4042,7 +4042,7 @@ export default function StakingDashboard() {
                       </div>
 
                       <div
-                        className={`rounded-lg px-2 py-1 shrink-0 whitespace-nowrap text-[10px] font-black ${
+                        className={`w-fit max-w-full shrink-0 whitespace-nowrap rounded-lg px-2 py-1 text-[10px] font-black ${
                           isLocked
                             ? "bg-yellow-500/10 text-yellow-300"
                             : "bg-green-500/10 text-green-300"
