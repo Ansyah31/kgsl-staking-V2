@@ -1958,6 +1958,11 @@ export default function StakingDashboard() {
       lightMode
     );
 
+    document.documentElement.classList.toggle(
+      "dark",
+      !lightMode
+    );
+
     window.localStorage.setItem(
       "kgsl-theme",
       lightMode ? "light" : "dark"
