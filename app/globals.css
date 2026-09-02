@@ -859,12 +859,23 @@ html.light-mode .border-white\/20 {
    Mengikuti theme utama KGSL
 ============================================================ */
 
+/* SUCCESS MODAL DARK 50% TRANSPARENCY */
+html:not(.light-mode) .kgsl-success-modal {
+  background: rgba(11, 10, 8, 0.50) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+
+
 html.light-mode .kgsl-success-modal {
-  background: #ffffff !important;
+  background: rgba(255, 255, 255, 0.50) !important;
   color: #171717;
   border-color: rgba(180, 140, 30, 0.45) !important;
   box-shadow:
     0 25px 70px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 html.light-mode .kgsl-success-modal .text-slate-600 {
