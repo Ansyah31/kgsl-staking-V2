@@ -2961,6 +2961,7 @@ export default function StakingDashboard() {
 
       /* ------------------------------------------------------
          AMBIL JUMLAH REWARD AKTUAL DARI TRANSAKSI SOLANA
+         BERDASARKAN ATA PENERIMA REWARD
       ------------------------------------------------------ */
 
       let actualReward = 0;
@@ -2981,43 +2982,77 @@ export default function StakingDashboard() {
         const postTokenBalances =
           parsedTx.meta.postTokenBalances ?? [];
 
-        const ownerAddress =
-          publicKey.toBase58();
+        const ownerRewardAta =
+          ownerRewardAccount.toBase58();
 
-        const mintAddress =
-          rewardMint.toBase58();
+        const accountKeys =
+          parsedTx.transaction.message.accountKeys;
+
+        const getAccountAddress = (accountIndex: number): string => {
+          const account: any = accountKeys[accountIndex];
+
+          if (!account) return "";
+
+          if (account.pubkey) {
+            return account.pubkey.toBase58();
+          }
+
+          return account.toBase58();
+        };
 
         const preBalance =
           preTokenBalances.find(
             (b: any) =>
-              b.owner === ownerAddress &&
-              b.mint === mintAddress
+              b.mint === rewardMint.toBase58() &&
+              getAccountAddress(b.accountIndex) === ownerRewardAta
           );
 
         const postBalance =
           postTokenBalances.find(
             (b: any) =>
-              b.owner === ownerAddress &&
-              b.mint === mintAddress
+              b.mint === rewardMint.toBase58() &&
+              getAccountAddress(b.accountIndex) === ownerRewardAta
           );
 
-        if (preBalance && postBalance) {
-          const preAmount =
-            Number(
-              preBalance.uiTokenAmount.uiAmountString ?? "0"
-            );
+        const preAmount =
+          preBalance
+            ? BigInt(
+                preBalance.uiTokenAmount.amount
+              )
+            : BigInt(0);
 
-          const postAmount =
-            Number(
-              postBalance.uiTokenAmount.uiAmountString ?? "0"
-            );
+        const postAmount =
+          postBalance
+            ? BigInt(
+                postBalance.uiTokenAmount.amount
+              )
+            : BigInt(0);
 
-          actualReward =
-            Math.max(
-              0,
-              postAmount - preAmount
-            );
-        }
+        const receivedAmount =
+          postAmount > preAmount
+            ? postAmount - preAmount
+            : BigInt(0);
+
+        const decimals =
+          postBalance?.uiTokenAmount.decimals ??
+          preBalance?.uiTokenAmount.decimals ??
+          DECIMALS;
+
+        const divisor =
+          10 ** decimals;
+
+        actualReward =
+          Number(receivedAmount) / divisor;
+
+        console.log(
+          "CLAIM REWARD ATA:",
+          ownerRewardAta
+        );
+
+        console.log(
+          "CLAIM REWARD RAW:",
+          receivedAmount.toString()
+        );
 
         console.log(
           "CLAIM ACTUAL REWARD:",
