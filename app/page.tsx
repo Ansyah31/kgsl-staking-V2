@@ -2954,12 +2954,78 @@ export default function StakingDashboard() {
         sig
       );
 
+      /* ------------------------------------------------------
+         AMBIL JUMLAH REWARD AKTUAL DARI TRANSAKSI SOLANA
+      ------------------------------------------------------ */
+
+      let actualReward = 0;
+
+      const parsedTx =
+        await connection.getParsedTransaction(
+          sig,
+          {
+            commitment: "confirmed",
+            maxSupportedTransactionVersion: 0,
+          }
+        );
+
+      if (parsedTx?.meta) {
+        const preTokenBalances =
+          parsedTx.meta.preTokenBalances ?? [];
+
+        const postTokenBalances =
+          parsedTx.meta.postTokenBalances ?? [];
+
+        const ownerAddress =
+          publicKey.toBase58();
+
+        const mintAddress =
+          rewardMint.toBase58();
+
+        const preBalance =
+          preTokenBalances.find(
+            (b: any) =>
+              b.owner === ownerAddress &&
+              b.mint === mintAddress
+          );
+
+        const postBalance =
+          postTokenBalances.find(
+            (b: any) =>
+              b.owner === ownerAddress &&
+              b.mint === mintAddress
+          );
+
+        if (preBalance && postBalance) {
+          const preAmount =
+            Number(
+              preBalance.uiTokenAmount.uiAmountString ?? "0"
+            );
+
+          const postAmount =
+            Number(
+              postBalance.uiTokenAmount.uiAmountString ?? "0"
+            );
+
+          actualReward =
+            Math.max(
+              0,
+              postAmount - preAmount
+            );
+        }
+
+        console.log(
+          "CLAIM ACTUAL REWARD:",
+          actualReward
+        );
+      }
+
       await refresh();
 
       setSuccessModal({
         title: "Reward berhasil diklaim!",
         message: "Transaksi berhasil diproses di Solana Devnet.",
-        amount: `${stake.accruedReward.toFixed(6)} KGSL`,
+        amount: `${actualReward.toFixed(6)} KGSL`,
         signature: sig,
       });
     } catch (e: any) {
