@@ -3544,7 +3544,7 @@ export default function StakingDashboard() {
           onClick={() => setSuccessModal(null)}
         >
           <div
-            className="w-full max-w-md overflow-hidden rounded-3xl border border-[#d4af37]/60 bg-white dark:bg-[#0b0a08] shadow-2xl shadow-black/70"
+            className="kgsl-success-modal w-full max-w-md overflow-hidden rounded-3xl border border-[#d4af37]/60 bg-[#0b0a08] shadow-2xl shadow-black/70"
             onClick={(e) => e.stopPropagation()}
           >
 

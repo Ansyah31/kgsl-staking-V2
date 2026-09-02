@@ -853,3 +853,48 @@ html.light-mode .border-white\/20 {
   }
 }
 
+
+/* ============================================================
+   SUCCESS MODAL THEME
+   Mengikuti theme utama KGSL
+============================================================ */
+
+html.light-mode .kgsl-success-modal {
+  background: #ffffff !important;
+  color: #171717;
+  border-color: rgba(180, 140, 30, 0.45) !important;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.18) !important;
+}
+
+html.light-mode .kgsl-success-modal .text-slate-600 {
+  color: #525252 !important;
+}
+
+html.light-mode .kgsl-success-modal .text-slate-500 {
+  color: #737373 !important;
+}
+
+html.light-mode .kgsl-success-modal .text-slate-700 {
+  color: #404040 !important;
+}
+
+html.light-mode .kgsl-success-modal .text-slate-300 {
+  color: #404040 !important;
+}
+
+html.light-mode .kgsl-success-modal .bg-\[\#12100b\] {
+  background: rgba(212, 175, 55, 0.06) !important;
+}
+
+html.light-mode .kgsl-success-modal .bg-\[\#10100d\] {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light-mode .kgsl-success-modal .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+html.light-mode .kgsl-success-modal .text-\[\#f5d76e\] {
+  color: #9a7410 !important;
+}
