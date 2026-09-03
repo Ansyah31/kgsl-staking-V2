@@ -1683,37 +1683,129 @@ export default function StakingDashboard() {
 
           /*
            * ======================================================
-           * CONTINUOUS DISPLAY REWARD
+           * COMPOUND REWARD — SAMA DENGAN SMART CONTRACT
            * ======================================================
            *
-           * Hanya untuk indikator PENDING REWARD di frontend.
+           * Contract:
            *
-           * 20 detik -> display dapat berubah
-           * 40 detik -> display dapat berubah
-           * 60 detik -> display dapat berubah
+           * balance * (1 + interval_rate)^intervals
            *
-           * Claim tetap mengikuti rewardIntervals.
+           * Semua operasi menggunakan integer fixed-point,
+           * sama seperti mul_fp(), pow_fp(), dan compound_fp()
+           * di smart contract.
            */
 
-          if (
-            elapsedForReward > 0 &&
-            rewardRateFpBig > BigInt(0)
-          ) {
-            const elapsedRewardFpBig =
-              (
-                simulatedBalanceFpBig *
-                rewardRateFpBig *
-                BigInt(
-                  elapsedForReward
-                )
-              ) /
-              (
-                ratePrecisionBig *
-                BigInt(86400)
+          function mulFp(
+            a: bigint,
+            b: bigint,
+            precision: bigint
+          ): bigint {
+            const aInt =
+              a / precision;
+
+            const aFrac =
+              a % precision;
+
+            const partInt =
+              aInt * b;
+
+            const partFrac =
+              (aFrac * b) / precision;
+
+            return partInt + partFrac;
+          }
+
+          function powFp(
+            baseInput: bigint,
+            exponentInput: bigint,
+            precision: bigint
+          ): bigint {
+            let base =
+              baseInput;
+
+            let exponent =
+              exponentInput;
+
+            let result =
+              precision;
+
+            while (exponent > BigInt(0)) {
+              if (
+                exponent &
+                BigInt(1)
+              ) {
+                result =
+                  mulFp(
+                    result,
+                    base,
+                    precision
+                  );
+              }
+
+              exponent >>= BigInt(1);
+
+              if (
+                exponent >
+                BigInt(0)
+              ) {
+                base =
+                  mulFp(
+                    base,
+                    base,
+                    precision
+                  );
+              }
+            }
+
+            return result;
+          }
+
+          function compoundFp(
+            balance: bigint,
+            intervalRate: bigint,
+            intervals: bigint,
+            precision: bigint
+          ): bigint {
+            if (
+              intervals ===
+              BigInt(0)
+            ) {
+              return balance;
+            }
+
+            const factor =
+              precision +
+              intervalRate;
+
+            const growthFactor =
+              powFp(
+                factor,
+                intervals,
+                precision
               );
 
-            simulatedBalanceFpBig +=
-              elapsedRewardFpBig;
+            return mulFp(
+              balance,
+              growthFactor,
+              precision
+            );
+          }
+
+          /*
+           * Hanya interval penuh yang sudah dapat di-claim.
+           * Ini harus sama dengan smart contract.
+           */
+          if (
+            rewardIntervals > 0 &&
+            rewardRateFpBig > BigInt(0)
+          ) {
+            simulatedBalanceFpBig =
+              compoundFp(
+                simulatedBalanceFpBig,
+                intervalRateBig,
+                BigInt(rewardIntervals),
+                ratePrecisionBig
+              );
           }
 
           /*
