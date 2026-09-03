@@ -1472,6 +1472,28 @@ export default function StakingDashboard() {
           const account: any =
             stakeEntry.account;
 
+          console.log(
+            "===== RAW STAKE ACCOUNT DEBUG =====",
+            {
+              publicKey:
+                stakeEntry.publicKey?.toBase58?.(),
+              compoundBalanceFp:
+                account.compoundBalanceFp,
+              compoundBalanceFpString:
+                account.compoundBalanceFp?.toString?.(),
+              compoundBalanceFpType:
+                typeof account.compoundBalanceFp,
+              compoundBalance:
+                account.compoundBalance,
+              compoundBalanceString:
+                account.compoundBalance?.toString?.(),
+              compound_balance:
+                account.compound_balance,
+              amount:
+                account.amount,
+            }
+          );
+
           const currentPositionId =
             toNumber(
               account.positionId ??
@@ -1518,7 +1540,7 @@ export default function StakingDashboard() {
             1_000_000_000_000_000_000;
 
           const compoundBalanceFpRaw =
-            toNumber(
+            toBigInt(
               account.compoundBalanceFp ??
                 account.compound_balance_fp ??
                 0
@@ -1532,17 +1554,17 @@ export default function StakingDashboard() {
            */
 
           const compoundBalanceRaw =
-            toNumber(
+            toBigInt(
               account.compoundBalance ??
                 account.compound_balance ??
                 account.amount
             );
 
-          const compoundBalanceFp =
-            compoundBalanceFpRaw > 0
+          const compoundBalanceFpBig =
+            compoundBalanceFpRaw > BigInt(0)
               ? compoundBalanceFpRaw
               : compoundBalanceRaw *
-                ratePrecision;
+                BigInt("1000000000000000000");
 
           const rewardRateFp =
             toBigInt(
@@ -1635,7 +1657,8 @@ export default function StakingDashboard() {
             );
 
           let simulatedBalanceFp =
-            compoundBalanceFp;
+            Number(compoundBalanceFpBig) /
+              ratePrecision;
 
           /*
            * ======================================================
@@ -1662,9 +1685,7 @@ export default function StakingDashboard() {
             );
 
           let simulatedBalanceFpBig =
-            toBigInt(
-              compoundBalanceFp
-            );
+            compoundBalanceFpBig;
 
           /*
            * Rate per interval.
@@ -1821,11 +1842,6 @@ export default function StakingDashboard() {
            * Reward baru dalam fixed-point.
            */
 
-          const compoundBalanceFpBig =
-            compoundBalanceFpRaw > 0
-              ? toBigInt(compoundBalanceFpRaw)
-              : toBigInt(compoundBalanceRaw) *
-                BigInt("1000000000000000000");
 
           const accruedRewardFpBig =
             simulatedBalanceFpBig >
@@ -1842,6 +1858,23 @@ export default function StakingDashboard() {
           const accruedRewardRawBig =
             accruedRewardFpBig /
             ratePrecisionBig;
+
+          console.log(
+            "===== REWARD CALC DEBUG =====",
+            {
+              positionId:
+                currentPositionId,
+              compoundBalanceFp:
+                compoundBalanceFpBig.toString(),
+              simulatedBalanceFp:
+                simulatedBalanceFpBig.toString(),
+              rewardIntervals,
+              lastRewardTime,
+              now,
+              accruedRewardRaw:
+                accruedRewardRawBig.toString(),
+            }
+          );
 
           const accruedRewardRaw =
             Number(
@@ -1867,15 +1900,10 @@ export default function StakingDashboard() {
               ),
 
             accruedReward:
-              Math.max(
-                0,
-                Number(
-                  simulatedBalanceFpBig /
-                    ratePrecisionBig
-                ) /
-                  10 ** DECIMALS -
-                  tokenAmount(amountRaw)
-              ),
+              Number(
+                accruedRewardRawBig
+              ) /
+                10 ** DECIMALS,
 
             /*
              * CLAIM mengikuti reward_interval_seconds
